@@ -67,7 +67,7 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
  
   print("exporting fasta sequence")
   
-  writeFasta(sangerContig, outputDir = "./Fasta_Sequences/", selection = "contig")
+  writeFasta(sangerContig, outputDir = "../Fasta_Sequences/", selection = "contig")
   
   print("subsetting quality data")
   
@@ -157,7 +157,7 @@ analyze.sequences<- function(path){
   summary_data<- summary_data[, c(14,1:13)]
   
   #export the summary data into a csv in the Results folder
-  Resultpath<- file.path("./Results", paste("Quality_Report", basename(path), ".csv", sep=""))
+  Resultpath<- file.path("../Results", paste("Quality_Report", basename(path), ".csv", sep=""))
   write.csv(summary_data, file = Resultpath, row.names = FALSE)
   
 }

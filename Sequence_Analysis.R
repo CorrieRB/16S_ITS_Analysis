@@ -20,9 +20,9 @@ source("Blast_Analysis_functions.R")
 
 #2.------------------Trim, merge and generating consensus sequences-----------------------------
 
-analyze.sequences(path ="./Analysis-compare_Round2/2020_07_11_FUNGAL_ITS")
+analyze.sequences(path ="../Analysis-compare_Round2/2020_07_11_FUNGAL_ITS")
 
 f#3.---------------------------------Blast-----------------------------------------------------
 
-Blast.Files(Blastpath = "./Fasta_Sequences")
+Blast.Files(Blastpath = "../Fasta_Sequences")
 

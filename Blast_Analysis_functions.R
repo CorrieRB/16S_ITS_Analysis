@@ -78,7 +78,7 @@ Blast.all<- function(file_name, blast_db){
   name = basename(file_name)
   edit.fasta(file_name)
   Blast_output<- Blast.CB(file_name, blast_db = blast_db) 
-  mypath <- file.path("./Results/", paste("Result", name, ".csv", sep=""))
+  mypath <- file.path("../Results/", paste("Result", name, ".csv", sep=""))
   write.csv(Blast_output, file = mypath, row.names = FALSE)
 }
 
