@@ -59,11 +59,14 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
     contigName            = contigName,
     suffixForwardRegExp   = suffixForwardRegExp,
     suffixReverseRegExp   = suffixReverseRegExp,
-    TrimmingMethod        = "M1",
-    M1TrimmingCutoff      = 1e-03,
+    TrimmingMethod        = "M2",
+    M1TrimmingCutoff      = NULL,
+    M2CutoffQualityScore  = 20,
+    M2SlidingWindowSize   = 10,
     minReadLength         = 0,
     signalRatioCutoff     = 0.33,
-    showTrimmed           = TRUE)
+    showTrimmed           = TRUE,
+    geneticCode           = GENETIC_CODE)
  
   print("exporting fasta sequence")
   
@@ -76,8 +79,7 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
   
   print("Generating read summary")
   
-  read.summary = c("trim.cutoff"                 = QualityFWD@M1TrimmingCutoff,
-                   "trimmed.start.FWD"           = QualityFWD@trimmedStartPos,
+  read.summary = c("trimmed.start.FWD"           = QualityFWD@trimmedStartPos,
                    "trimmed.start.REV"           = QualityREV@trimmedStartPos,
                    "trimmed.finish.FWD"          = QualityFWD@trimmedFinishPos,
                    "trimmed.finish.REV"          = QualityREV@trimmedFinishPos,
@@ -103,8 +105,7 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   file_name_rev = paste(group, "_REV.ab1", sep="")
   contigName = basename(group)
   
-  row_names = c("trim_cutoff",
-                "trim_start_FWD",
+  row_names = c("trim_start_FWD",
                 "trim_start_REV",
                 "trim_finish_FWD",
                 "trim_finish_REV",
@@ -154,7 +155,7 @@ analyze.sequences<- function(path){
   summary_data<- do.call(rbind, summarylist)
   
   #change the order of the columns so the contig name is the first column of the df
-  summary_data<- summary_data[, c(14,1:13)]
+  summary_data<- summary_data[, c(13,1:12)]
   
   #export the summary data into a csv in the Results folder
   Resultpath<- file.path("../Results", paste("Quality_Report", basename(path), ".csv", sep=""))

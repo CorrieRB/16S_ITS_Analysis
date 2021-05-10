@@ -29,12 +29,11 @@ Blast.CB<-function (x,
                     blastn = "blastn",
                     blast_db = blast_db,
                     input = x,
-                    evalue = 1e-6,
+                    evalue = 0.05,
                     format = '"6 qseqid sscinames sseqid pident length qcovhsp mismatch gapopen qstart qend sstart send evalue bitscore"',
-                    max_target_seqs = 50,
+                    max_target_seqs = 100,
                     word_size = 28,
-                    qcov_hsp_perc = 80,
-                    max_hsps = 5){
+                    qcov_hsp_perc = 90){
   
   colnames <- c("qseqid",
                 "Name",
@@ -59,8 +58,7 @@ Blast.CB<-function (x,
                              "-ungapped",
                              "-max_target_seqs", max_target_seqs,
                              "-word_size", word_size,
-                             "-qcov_hsp_perc", qcov_hsp_perc,
-                             "-max_hsps", max_hsps),
+                             "-qcov_hsp_perc", qcov_hsp_perc),
                     wait = TRUE,
                     stdout = TRUE) %>% 
               as_tibble() %>% 
@@ -98,7 +96,7 @@ Blast.Files<- function(Blastpath){
   indices_16S = which(!is.na(matches_16S))
   file_names_16S = file_names[indices_16S]
   
-  blast16Sdb = "./NCBI/blast-2.11.0+/db/16S_ribosomal_RNA"
+  blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA"
   
   print("blasting 16S")
   
@@ -110,7 +108,7 @@ Blast.Files<- function(Blastpath){
   matches_ITS = str_match(file_names, "ITS")
   indices_ITS = which(!is.na(matches_ITS))
   file_names_ITS = file_names[indices_ITS]
-  blastITSdb = "./NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi"
+  blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi"
   
   print("blasting ITS")
   
