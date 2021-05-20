@@ -86,7 +86,7 @@ Blast.all<- function(file_name, blast_db){
 #blasts against ITS DB for files with ITS in the file name
 
 
-Blast.Files<- function(Blastpath){
+Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA", blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi"){
   
   file_names <- dir(Blastpath, pattern=".fa|.fsta", full.names = TRUE)
   
@@ -96,10 +96,8 @@ Blast.Files<- function(Blastpath){
   indices_16S = which(!is.na(matches_16S))
   file_names_16S = file_names[indices_16S]
   
-  blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA"
-  
   print("blasting 16S")
-  
+ 
   lapply(file_names_16S, FUN = Blast.all, blast_db = blast16Sdb )
   
   
@@ -108,7 +106,6 @@ Blast.Files<- function(Blastpath){
   matches_ITS = str_match(file_names, "ITS")
   indices_ITS = which(!is.na(matches_ITS))
   file_names_ITS = file_names[indices_ITS]
-  blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi"
   
   print("blasting ITS")
   

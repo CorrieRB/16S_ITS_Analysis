@@ -20,9 +20,12 @@ source("Blast_Analysis_functions.R")
 
 #2.------------------Trim, merge and generating consensus sequences-----------------------------
 
-analyze.sequences(path ="../testing")
+analyze.sequences(path ="../Raw_data/Analysis-compare_Round2/Plate_2019_08_02_16S_Myco")
 
-f#3.---------------------------------Blast-----------------------------------------------------
-
+#3.---------------------------------Blast-----------------------------------------------------
+#for search against 16S and ITS databases
 Blast.Files(Blastpath = "../Fasta_Sequences")
+
+#for search against nucleotide database
+Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "../NCBI/blast-2.11.0+/db/nt")
 
