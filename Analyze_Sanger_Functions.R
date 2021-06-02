@@ -61,7 +61,7 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
     suffixReverseRegExp   = suffixReverseRegExp,
     TrimmingMethod        = "M2",
     M1TrimmingCutoff      = NULL,
-    M2CutoffQualityScore  = 20,
+    M2CutoffQualityScore  = 30,
     M2SlidingWindowSize   = 10,
     minReadLength         = 0,
     signalRatioCutoff     = 0.33,
@@ -72,6 +72,13 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
   
   writeFasta(sangerContig, outputDir = "../Fasta_Sequences/", selection = "contig")
   
+  print("exporting contig alignment")
+  
+  alignment = sangerContig@alignment
+  alignment<- DNAMultipleAlignment(alignment)
+  filepath<- file.path("../Results", paste("contigAlign", contigName, ".txt", sep=""))
+  write.phylip(alignment, filepath = filepath)
+  
   print("subsetting quality data")
   
   QualityFWD <- sangerContig@forwardReadList[[file_name_fwd]]@QualityReport
@@ -79,7 +86,8 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
   
   print("Generating read summary")
   
-  read.summary = c("trimmed.start.FWD"           = QualityFWD@trimmedStartPos,
+  read.summary = c("consensus.length"            = sangerContig@contigSeq@length,
+                   "trimmed.start.FWD"           = QualityFWD@trimmedStartPos,
                    "trimmed.start.REV"           = QualityREV@trimmedStartPos,
                    "trimmed.finish.FWD"          = QualityFWD@trimmedFinishPos,
                    "trimmed.finish.REV"          = QualityREV@trimmedFinishPos,
@@ -105,18 +113,19 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   file_name_rev = paste(group, "_REV.ab1", sep="")
   contigName = basename(group)
   
-  row_names = c("trim_start_FWD",
-                "trim_start_REV",
-                "trim_finish_FWD",
-                "trim_finish_REV",
-                "raw_length_FWD",
-                "raw_length_REV",
-                "trim_length_FWD",
-                "trim_length_FWD",
-                "raw_MeanQual_FWD",
-                "raw_MeanQual_rev",
-                "trim_MeanQual_FWD",
-                "trim_MeanQal_REV")
+  row_names = c("Consensus length",
+                "trim start FWD",
+                "trim start REV",
+                "trim finish FWD",
+                "trim finish REV",
+                "raw length FWD",
+                "raw length REV",
+                "trim length FWD",
+                "trim length FWD",
+                "raw MeanQual FWD",
+                "raw MeanQual rev",
+                "trim MeanQual FWD",
+                "trim MeanQal REV")
   
   
   consensus_sequence <- CB.Contig(path =                path,
@@ -155,7 +164,7 @@ analyze.sequences<- function(path){
   summary_data<- do.call(rbind, summarylist)
   
   #change the order of the columns so the contig name is the first column of the df
-  summary_data<- summary_data[, c(13,1:12)]
+  summary_data<- summary_data[, c(14,1:13)]
   
   #export the summary data into a csv in the Results folder
   Resultpath<- file.path("../Results", paste("Quality_Report", basename(path), ".csv", sep=""))
