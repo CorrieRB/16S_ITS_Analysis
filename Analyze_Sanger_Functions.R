@@ -61,7 +61,7 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
     suffixReverseRegExp   = suffixReverseRegExp,
     TrimmingMethod        = "M2",
     M1TrimmingCutoff      = NULL,
-    M2CutoffQualityScore  = 30,
+    M2CutoffQualityScore  = 40,
     M2SlidingWindowSize   = 10,
     minReadLength         = 0,
     signalRatioCutoff     = 0.33,
@@ -113,7 +113,7 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   file_name_rev = paste(group, "_REV.ab1", sep="")
   contigName = basename(group)
   
-  row_names = c("Consensus length",
+  col_names = c("Consensus length",
                 "trim start FWD",
                 "trim start REV",
                 "trim finish FWD",
@@ -139,7 +139,7 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   #turn it into a dataframe with row names from above
   summary = consensus_sequence$summary
   summary = t(summary) %>% 
-    as.data.frame(., row.names = row_names)
+    as.data.frame(., colnames = col_names)
   
   #add a column called sample which is equal to the contig name
   summary$sample <- contigName
@@ -170,4 +170,23 @@ analyze.sequences<- function(path){
   Resultpath<- file.path("../Results", paste("Quality_Report", basename(path), ".csv", sep=""))
   write.csv(summary_data, file = Resultpath, row.names = FALSE)
   
+}
+
+#------------------------------------single.read function---------------------------------------------------------------
+
+single.read<- function(readFileName, readFeature){
+  sangerRead<- SangerRead(inputSource = "ABIF",
+                          readFeature  = readFeature,
+                          readFileName = readFileName,
+                          geneticCode = GENETIC_CODE,
+                          TrimmingMethod = "M2",
+                          M1TrimmingCutoff = NULL,
+                          M2CutoffQualityScore = 40,
+                          M2SlidingWindowSize = 10, 
+                          baseNumPerRow = 100,
+                          heightPerRow = 200,
+                          signalRatioCutoff = 0.33,
+                          showTrimmed = TRUE)
+  sangerReadF
+  writeFasta(sangerRead, outputDir = "../Fasta_Sequences", compress = FALSE, compression_level = NA)
 }

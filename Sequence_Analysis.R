@@ -20,12 +20,17 @@ source("Blast_Analysis_functions.R")
 
 #2.------------------Trim, merge and generating consensus sequences-----------------------------
 
-analyze.sequences(path ="../Raw_data/Analysis-compare_Round2/Plate_2019_08_02_16S_Myco")
+#for generating contig from forward and reverse reads in a sequencing file
+analyze.sequences(path ="../testing")
+
+#for trimming and generating fasta sequence for a single read forward or reverse
+
+single.read(readFileName = "../testing/2021_02_24_16S_SPNEUMO48618_FWD.ab1", readFeature = "Forward Read")
 
 #3.---------------------------------Blast-----------------------------------------------------
 #for search against 16S and ITS databases
-Blast.Files(Blastpath = "../Fasta_Sequences")
+Blast.Files(Blastpath = "../Fasta_Sequences", DBname = "_rRNA")
 
 #for search against nucleotide database
-Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "../NCBI/blast-2.11.0+/db/nt")
+Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "../NCBI/blast-2.11.0+/db/nt", blastITSdb = "../NCBI/blast-2.11.0+/db/nt", DBname = "_nucleotide")
 

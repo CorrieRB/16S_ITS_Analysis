@@ -30,13 +30,13 @@ Blast.CB<-function (x,
                     blast_db = blast_db,
                     input = x,
                     evalue = 0.05,
-                    format = '"6 qseqid sscinames sseqid pident length qcovhsp mismatch gapopen qstart qend sstart send evalue bitscore"',
+                    format = '"6 sscinames sseqid pident length qcovhsp mismatch gapopen qstart qend sstart send evalue bitscore"',
                     max_target_seqs = 100,
+                    gapopen = 0,
                     word_size = 28,
                     qcov_hsp_perc = 90){
   
-  colnames <- c("qseqid",
-                "Name",
+  colnames <- c("Name",
                 "sseqid",
                 "pident",
                 "length",
@@ -55,7 +55,7 @@ Blast.CB<-function (x,
                              "-query", input, 
                              "-outfmt", format, 
                              "-evalue", evalue, 
-                             "-ungapped",
+                             "-gapopen", gapopen,
                              "-max_target_seqs", max_target_seqs,
                              "-word_size", word_size,
                              "-qcov_hsp_perc", qcov_hsp_perc),
@@ -72,11 +72,12 @@ Blast.CB<-function (x,
 #runs the Blast.CB function on the file and
 #savest the blast result into a csv
 
-Blast.all<- function(file_name, blast_db){
+Blast.all<- function(file_name, blast_db, DBname){
   name = basename(file_name)
+  DB = DBname
   edit.fasta(file_name)
   Blast_output<- Blast.CB(file_name, blast_db = blast_db) 
-  mypath <- file.path("../Results/", paste("Result", name, ".csv", sep=""))
+  mypath <- file.path("../Results/", paste("Result", DB, name, ".csv", sep=""))
   write.csv(Blast_output, file = mypath, row.names = FALSE)
 }
 
@@ -86,7 +87,7 @@ Blast.all<- function(file_name, blast_db){
 #blasts against ITS DB for files with ITS in the file name
 
 
-Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA", blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi"){
+Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA", blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi", DBname = DBname){
   
   file_names <- dir(Blastpath, pattern=".fa|.fsta", full.names = TRUE)
   
@@ -98,7 +99,7 @@ Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_rib
   
   print("blasting 16S")
  
-  lapply(file_names_16S, FUN = Blast.all, blast_db = blast16Sdb )
+  lapply(file_names_16S, FUN = Blast.all, blast_db = blast16Sdb, DBname = DBname)
   
   
   print("generating ITS sequence list")
@@ -109,7 +110,7 @@ Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_rib
   
   print("blasting ITS")
   
-  lapply(file_names_ITS, FUN = Blast.all, blast_db = blastITSdb)
+  lapply(file_names_ITS, FUN = Blast.all, blast_db = blastITSdb, DBname = DBname)
 }
 
 
