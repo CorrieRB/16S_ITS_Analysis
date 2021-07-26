@@ -87,16 +87,8 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
   print("Generating read summary")
   
   read.summary = c("consensus.length"            = sangerContig@contigSeq@length,
-                   "trimmed.start.FWD"           = QualityFWD@trimmedStartPos,
-                   "trimmed.start.REV"           = QualityREV@trimmedStartPos,
-                   "trimmed.finish.FWD"          = QualityFWD@trimmedFinishPos,
-                   "trimmed.finish.REV"          = QualityREV@trimmedFinishPos,
-                   "raw.seq.length.FWD"          = QualityFWD@rawSeqLength,
-                   "raw.seq.length.REV"          = QualityREV@rawSeqLength,
                    "trimmed.seq.length.FWD"       = QualityFWD@trimmedSeqLength,
                    "trimmed.seq.length.REV"       = QualityREV@trimmedSeqLength,
-                   "raw.Mean.qual.FWD"           = QualityFWD@rawMeanQualityScore,
-                   "raw.Mean.qual.REV"           = QualityREV@rawMeanQualityScore,
                    "trimmed.Mean.qual.FWD"       = QualityFWD@trimmedMeanQualityScore,
                    "trimmed.Mean.qual.REV"       = QualityREV@trimmedMeanQualityScore)
   
@@ -114,16 +106,8 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   contigName = basename(group)
   
   col_names = c("Consensus length",
-                "trim start FWD",
-                "trim start REV",
-                "trim finish FWD",
-                "trim finish REV",
-                "raw length FWD",
-                "raw length REV",
                 "trim length FWD",
                 "trim length FWD",
-                "raw MeanQual FWD",
-                "raw MeanQual rev",
                 "trim MeanQual FWD",
                 "trim MeanQal REV")
   
@@ -164,7 +148,7 @@ analyze.sequences<- function(path){
   summary_data<- do.call(rbind, summarylist)
   
   #change the order of the columns so the contig name is the first column of the df
-  summary_data<- summary_data[, c(14,1:13)]
+  summary_data<- summary_data[, c(6,1:5)]
   
   #export the summary data into a csv in the Results folder
   Resultpath<- file.path("../Results", paste("Quality_Report", basename(path), ".csv", sep=""))
