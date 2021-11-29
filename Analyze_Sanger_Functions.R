@@ -55,10 +55,10 @@ CB.Contig<- function(path, contigName, suffixForwardRegExp, suffixReverseRegExp,
   
   sangerContig <- SangerContig(
     inputSource           = "ABIF",
-    parentDirectory       = path,
+    ABIF_Directory        = path,
     contigName            = contigName,
-    suffixForwardRegExp   = suffixForwardRegExp,
-    suffixReverseRegExp   = suffixReverseRegExp,
+    REGEX_SuffixForward   = suffixForwardRegExp,
+    REGEX_SuffixReverse   = suffixReverseRegExp,
     TrimmingMethod        = "M2",
     M1TrimmingCutoff      = NULL,
     M2CutoffQualityScore  = 40,
