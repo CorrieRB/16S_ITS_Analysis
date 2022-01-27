@@ -171,6 +171,6 @@ single.read<- function(readFileName, readFeature){
                           heightPerRow = 200,
                           signalRatioCutoff = 0.33,
                           showTrimmed = TRUE)
-  sangerReadF
+  sangerRead
   writeFasta(sangerRead, outputDir = "../Fasta_Sequences", compress = FALSE, compression_level = NA)
 }

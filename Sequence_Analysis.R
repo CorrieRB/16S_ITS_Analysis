@@ -21,11 +21,11 @@ source("Blast_Analysis_functions.R")
 #2.------------------Trim, merge and generating consensus sequences-----------------------------
 
 #for generating contig from forward and reverse reads in a sequencing file
-analyze.sequences(path ="../Raw_data/2021_07_06_16S")
+analyze.sequences(path ="../Raw_data/2021_08_31_16S")
 
 #for trimming and generating fasta sequence for a single read forward or reverse
 
-single.read(readFileName = "../Raw_data/All_data_validation/ITS_T373137_REV.ab1", readFeature = "Reverse Read")
+single.read(readFileName = "../Raw_data/2021_11_01_16S/2021_11_01_16S_X338314_1_10_X_R.ab1", readFeature = "Reverse Read")
 
 #3.---------------------------------Blast-----------------------------------------------------
 #for search against 16S and ITS databases

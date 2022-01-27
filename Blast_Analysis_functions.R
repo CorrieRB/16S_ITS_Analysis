@@ -6,11 +6,11 @@ if (!requireNamespace("librarian", quietly = TRUE))
 librarian::shelf(Biostrings, tidyverse, seqinr, devtools, lib = tempdir(), update_all = TRUE)
 
 #--------------------------------Setting correct paths for blast and blast DB----------------------------------------------------------------
-#change D: depending on the drive cmputer assigns to the USB 
-#is this neccessary to keep?
+#change depending on the location of your analysis path
 
-Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Users\\corri\\16S_ITS_Analysis\\NCBI\\blast-2.11.0+\\bin", sep= .Platform$path.sep))
-Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Users\\corri\\16S_ITS_Analysis\\NCBI\\blast-2.11.0+\\db", sep= .Platform$path.sep))
+
+Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Users\\corri\\Sequencing_Analysis\\NCBI\\blast-2.12.0+\\bin", sep= .Platform$path.sep))
+Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:\\Users\\corri\\Sequencing_Analysis\\NCBI\\blast-2.12.0+\\db", sep= .Platform$path.sep))
 
 #----------------------------------------------------------edit.fasta function---------------------------------------------------------------
 #Function to remove spaces from fastafiles---------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ Blast.all<- function(file_name, blast_db, DBname){
 #blasts against ITS DB for files with ITS in the file name
 
 
-Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.11.0+/db/16S_ribosomal_RNA", blastITSdb = "../NCBI/blast-2.11.0+/db/ITS_RefSeq_Fungi", DBname = DBname){
+Blast.Files<- function(Blastpath, blast16Sdb = "../NCBI/blast-2.12.0+/db/16S_ribosomal_RNA", blastITSdb = "../NCBI/blast-2.12.0+/db/ITS_RefSeq_Fungi", DBname = DBname){
   
   file_names <- dir(Blastpath, pattern=".fa|.fsta", full.names = TRUE)
   
