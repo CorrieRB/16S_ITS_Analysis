@@ -1,17 +1,20 @@
 # 16S_ITS_Analysis
+<hr />
 
 This is a Github repository containing functions useful for 16S and ITS Sanger sequencing analysis.
 
 # Required packages
+<hr />
 
 RTools must be installed and configured before use
 
 The following packages are used for this Sanger analysis pipeline:
--Sangeranalyze.R
--Tidyverse
--Seqinr
--Devtools
--Biostrings
+	
+- Sangeranalyze.R	
+- Tidyverse
+- Seqinr
+- Devtools
+- Biostrings
  
 local Blast+ must be installed before use and location of blast directories updated in the **Blast_Analysis_functions.R** script (lines 12 and 13)
 
@@ -20,18 +23,21 @@ Blast can be downloaded [here](https://ftp.ncbi.nlm.nih.gov/blast/executables/bl
 See update_databases.R for 16S, ITS, nucleotide and taxdb databases that need to be downloaded and updated
 git
 # Instructions for use
+<hr />
 
 ## Setup
 First make sure the the **16S_ITS_Analysis** repository is located in a directory which also contains the following Directories:
--./Raw_data (for the ab1 Sanger sequencing files)
--./NCBI (containing the local BLAST databases)
--./Fasta_Sequences (the output directory for contig fasta files)
--./Fasta_Sequences_nucleotide_search (directory to put files to be searched against nucleotide database)
--./Resutls (the output directory for the contig alignments, quality reports and final BLAST results)
+
+- ./Raw_data (for the ab1 Sanger sequencing files)
+- ./NCBI (containing the local BLAST databases)
+- ./Fasta_Sequences (the output directory for contig fasta files)
+- ./Fasta_Sequences_nucleotide_search (directory to put files to be searched against nucleotide database)
+- ./Resutls (the output directory for the contig alignments, quality reports and final BLAST results)
 
 The Sequencing data should be saved with the following convention:
--YYYY_MM_DD_16S_Accession#_FWD
--YYYY_MM_DD_16S_Accession#_REV
+
+ YYYY_MM_DD_16S_Accession#_FWD<br/>
+ YYYY_MM_DD_16S_Accession#_REV
 
 run the folowing code in the **Sequence_Analysis.R** script to source the sequence analysis and blast functions:
 
@@ -44,7 +50,7 @@ source("Blast_Analysis_functions.R")
 ```
 
 ## Trimming and contig generation
-To analyze the Sanger sequence data, save the raw data in the Raw_data directory and update the location of the folder containing all the read files (line 25) or a single read file (line 29) in the **Sequence_Analysis.R** script.
+To analyze the Sanger sequence data, save the raw data in the Raw_data directory and update the location of the folder containing all the read files (line 25) or a single read file (line 29) in the **Sequence_Analysis.R** script.<br/>
 Run the following code to generate contig alignments, quality reports and fasta sequences.
 
 ```
@@ -82,5 +88,6 @@ Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "..
 ```
 
 # License
+<hr />
 
 BSD-2-Clause
