@@ -1,8 +1,8 @@
-#16S_ITS_Analysis
+# 16S_ITS_Analysis
 
 This is a Github repository containing functions useful for 16S and ITS Sanger sequencing analysis.
 
-#Required packages
+# Required packages
 
 RTools must be installed and configured before use
 
@@ -19,9 +19,9 @@ Blast can be downloaded [here](https://ftp.ncbi.nlm.nih.gov/blast/executables/bl
 
 See update_databases.R for 16S, ITS, nucleotide and taxdb databases that need to be downloaded and updated
 git
-#Instructions for use
+# Instructions for use
 
-##Setup
+## Setup
 First make sure the the **16S_ITS_Analysis** repository is located in a directory which also contains the following Directories
 ./Raw_data (for the ab1 Sanger sequencing files)
 ./NCBI (containing the local BLAST databases)
@@ -43,7 +43,7 @@ source("Analyze_Sanger_Functions.R")
 source("Blast_Analysis_functions.R")
 ```
 
-##Trimming and contig generation
+## Trimming and contig generation
 To analyze the Sanger sequence data, save the raw data in the Raw_data directory and update the location of the folder containing all the read files (line 25) or a single read file (line 29) in the **Sequence_Analysis.R** script.
 Run the following code to generate contig alignments, quality reports and fasta sequences.
 
@@ -60,7 +60,7 @@ single.read(readFileName = "../Raw_data/2022_03_17_16S/2022_03_16_16S_H717480_FW
 ```
 **Note:** If either forward or reverse reads do not meet quality cutoffs then a consensus sequence cannot be generated and the analysis will quit at that sequence without finishing. Remove these files from the directory containing the other reads to analyze all the reads without the analysis cutting short.
 
-##Blast searching against 16S or nucleotide DB
+## Blast searching against 16S or nucleotide DB
 Running the following will Blast the sequences in the Fasta_Sequences directory against the local 16S database:
 
 ```
@@ -80,6 +80,6 @@ Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "..
 
 ```
 
-#License
+# License
 
 BSD-2-Clause
