@@ -7,11 +7,11 @@ This is a Github repository containing functions useful for 16S and ITS Sanger s
 RTools must be installed and configured before use
 
 The following packages are used for this Sanger analysis pipeline:
-Sangeranalyze.R
-Tidyverse
-Seqinr
-Devtools
-Biostrings
+-Sangeranalyze.R
+-Tidyverse
+-Seqinr
+-Devtools
+-Biostrings
  
 local Blast+ must be installed before use and location of blast directories updated in the **Blast_Analysis_functions.R** script (lines 12 and 13)
 
@@ -22,16 +22,16 @@ git
 # Instructions for use
 
 ## Setup
-First make sure the the **16S_ITS_Analysis** repository is located in a directory which also contains the following Directories
-./Raw_data (for the ab1 Sanger sequencing files)
-./NCBI (containing the local BLAST databases)
-./Fasta_Sequences (the output directory for contig fasta files)
-./Fasta_Sequences_nucleotide_search (directory to put files to be searched against nucleotide database)
-./Resutls (the output directory for the contig alignments, quality reports and final BLAST results)
+First make sure the the **16S_ITS_Analysis** repository is located in a directory which also contains the following Directories:
+-./Raw_data (for the ab1 Sanger sequencing files)
+-./NCBI (containing the local BLAST databases)
+-./Fasta_Sequences (the output directory for contig fasta files)
+-./Fasta_Sequences_nucleotide_search (directory to put files to be searched against nucleotide database)
+-./Resutls (the output directory for the contig alignments, quality reports and final BLAST results)
 
 The Sequencing data should be saved with the following convention:
-YYYY_MM_DD_16S_Accession#_FWD
-YYYY_MM_DD_16S_Accession#_REV
+-YYYY_MM_DD_16S_Accession#_FWD
+-YYYY_MM_DD_16S_Accession#_REV
 
 run the folowing code in the **Sequence_Analysis.R** script to source the sequence analysis and blast functions:
 
@@ -58,7 +58,8 @@ analyze.sequences(path ="../Raw_data/2022_03_17_16S")
 #change readFileName to sequence of interest including sequence location
 single.read(readFileName = "../Raw_data/2022_03_17_16S/2022_03_16_16S_H717480_FWD.ab1", readFeature = "Forward Read")
 ```
-**Note:** If either forward or reverse reads do not meet quality cutoffs then a consensus sequence cannot be generated and the analysis will quit at that sequence without finishing. Remove these files from the directory containing the other reads to analyze all the reads without the analysis cutting short.
+#### **Note:** 
+If either forward or reverse reads do not meet quality cutoffs then a consensus sequence cannot be generated and the analysis will quit at that sequence without finishing. Remove these files from the directory containing the other reads to analyze all the reads without the analysis cutting short.
 
 ## Blast searching against 16S or nucleotide DB
 Running the following will Blast the sequences in the Fasta_Sequences directory against the local 16S database:
