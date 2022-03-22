@@ -22,11 +22,11 @@ source("Blast_Analysis_functions.R")
 
 #for generating contig from forward and reverse reads in a sequencing file
 #change path to location of raw sequencing data
-analyze.sequences(path ="../Raw_data/2022_02_11_16S")
+analyze.sequences(path ="../Raw_data/2022_03_17_16S")
 
 #for trimming and generating fasta sequence for a single read forward or reverse
 #change readFileName to sequence of interest including sequence location
-single.read(readFileName = "../Raw_data/2022_02_07_16S/2021_12_02_16S_X350030_FWD.ab1", readFeature = "Forward Read")
+single.read(readFileName = "../Raw_data/2022_03_17_16S/2022_03_16_16S_H717480_FWD.ab1", readFeature = "Forward Read")
 
 #3.---------------------------------Blast-----------------------------------------------------
 #for search against 16S and ITS databases

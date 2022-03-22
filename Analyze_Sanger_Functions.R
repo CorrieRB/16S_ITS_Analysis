@@ -114,8 +114,8 @@ Summarize.Sanger<- function(group, path = path, summarylist = summarylist){
   
   consensus_sequence <- CB.Contig(path =                path,
                                   contigName =          contigName,
-                                  suffixForwardRegExp = "_FWD.ab1",
-                                  suffixReverseRegExp = "_REV.ab1",
+                                  suffixForwardRegExp = "_FWD",
+                                  suffixReverseRegExp = "_REV",
                                   file_name_fwd =       file_name_fwd,
                                   file_name_rev =       file_name_rev)
   
@@ -165,7 +165,7 @@ single.read<- function(readFileName, readFeature){
                           geneticCode = GENETIC_CODE,
                           TrimmingMethod = "M2",
                           M1TrimmingCutoff = NULL,
-                          M2CutoffQualityScore = 40,
+                          M2CutoffQualityScore = 20,
                           M2SlidingWindowSize = 10, 
                           baseNumPerRow = 100,
                           heightPerRow = 200,
