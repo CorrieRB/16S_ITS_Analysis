@@ -156,6 +156,8 @@ analyze.sequences<- function(path){
   
 }
 
+#######################################################################################################################
+
 #------------------------------------single.read function---------------------------------------------------------------
 
 single.read<- function(readFileName, readFeature){
@@ -173,4 +175,63 @@ single.read<- function(readFileName, readFeature){
                           showTrimmed = TRUE)
   sangerRead
   writeFasta(sangerRead, outputDir = "../Fasta_Sequences", compress = FALSE, compression_level = NA)
+  
+  Quality <- sangerRead@QualityReport
+  
+  print("Generating read summary")
+  
+  read.summary = c("trimmed.seq.length"      = Quality@trimmedSeqLength,
+                   "trimmed.Mean.qual"       = Quality@trimmedMeanQualityScore)
+  
+  return(list("summary" = read.summary, "Read" = sangerRead))
+  
+}
+
+###
+#----------------------------------Summarize.Single function----------------------------------------------------------------
+#Summarize.Sanger function runs sanger contig function and puts subsetted quality data into a dataframe---------------------
+
+Summarize.Single<- function(readFileName, readFeature, summarylist = summarylist){
+  
+  singleName = basename(readFileName)
+  
+  col_names = c("trim length",
+                "trim MeanQual")
+  
+  
+  single_sequence <- single.read( readFileName = readFileName,
+                                  readFeature = readFeature)
+  
+  #separate summary data from the readsequence object 
+  #turn it into a dataframe with row names from above
+  summary = single_sequence$summary
+  summary = t(summary) %>% 
+    as.data.frame(., colnames = col_names)
+  
+  #add a column called sample which is equal to the contig name
+  summary$sample <- singleName
+  
+  summarylist[[readFileName]]<-summary
+}
+  
+
+
+#---------------------------------------analyze.single.sequence function------------------------------------------------------
+#Function to run summarize.sanger on groups of files and output  summary of quality results for all samples-------------
+
+analyze.single.sequence<- function(readFileName, readFeature){
+  #generate an empty summary list to put the summary data in
+  summarylist = list()
+  
+  #run summarize.sanger function on all files in the path to generate fasta files
+  summarylist<- Summarize.Single(readFileName = readFileName, readFeature = readFeature, summarylist = summarylist)
+ 
+  
+  #change the order of the columns so the contig name is the first column of the df
+  summary_data<- summarylist[, c(3,1,2)]
+  
+  #export the summary data into a csv in the Results folder
+  Resultpath<- file.path("../Results", paste("Quality_Report", basename(readFileName), ".csv", sep=""))
+  write.csv(summary_data, file = Resultpath, row.names = FALSE)
+  
 }
