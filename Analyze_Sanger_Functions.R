@@ -1,7 +1,9 @@
 ##----------------------------Sanger_Analysis_Functions for Sanger Sequencing reads----------------------------------------
 
 if (!requireNamespace(c("librarian", "BiocManager")))
-  install.packages("librarian", "BiocManager")
+  install.packages(c("librarian", "BiocManager"))
+library("librarian")
+library("BiocManager")
 
 librarian::shelf(devtools, tidyverse, lib = tempdir(), update_all = TRUE)
 
@@ -43,6 +45,7 @@ load.files <- function(path = path){
   
   return(groups)
 }
+
 
 #----------------------------------------CB.Contig function using sangercontig-----------------------------------------------
 #CB.Contig function generates a contig from a fwd and reverse read using sangercontig function-------------------------------
@@ -217,7 +220,7 @@ Summarize.Single<- function(readFileName, readFeature, summarylist = summarylist
 
 
 #---------------------------------------analyze.single.sequence function------------------------------------------------------
-#Function to run summarize.sanger on groups of files and output  summary of quality results for all samples-------------
+#Function to run summarize.sanger on single reads and output  summary of quality results for all samples-------------
 
 analyze.single.sequence<- function(readFileName, readFeature){
   #generate an empty summary list to put the summary data in

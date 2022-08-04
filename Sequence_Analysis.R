@@ -22,11 +22,11 @@ source("Blast_Analysis_functions.R")
 
 #for generating contig from forward and reverse reads in a sequencing file
 #change path to location of raw sequencing data
-analyze.sequences(path ="../Raw_data/2022_03_02_16S_ITS_2")
+analyze.sequences(path ="../Raw_data/Plate_2021_02_24_16S")
 
 #for trimming and generating fasta sequence for a single read forward or reverse
 #change readFileName to sequence of interest including sequence location
-analyze.single.sequence(readFileName = "../Raw_data/2022_03_02_16S_ITS/2022_03_02_16S_F40389_REV.ab1", readFeature = "Reverse Read")
+analyze.single.sequence(readFileName = "../Raw_data/Plate_2021_02_24_16S/2021_02_24_16S_STAU25923_FWD.ab1", readFeature = "Reverse Read")
 
 #3.---------------------------------Blast-----------------------------------------------------
 #for search against 16S and ITS databases
@@ -35,5 +35,5 @@ Blast.Files(Blastpath = "../Fasta_Sequences", DBname = "_rRNA")
 
 #for search against nucleotide database
 #change Blastpath to location of fasta sequences
-Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "../NCBI/blast-2.11.0+/db/nt", blastITSdb = "../NCBI/blast-2.11.0+/db/nt", DBname = "_nucleotide")
+Blast.Files(Blastpath = "../Fasta_Sequences_nucleotide_search", blast16Sdb = "../ncbi-blast-2.13.0+/db/nt", blastITSdb = "../ncbi-blast-2.13.0+/db/nt", DBname = "_nucleotide")
 
