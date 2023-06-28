@@ -18,9 +18,10 @@ library(sangeranalyseR)
 load.files <- function(path = path){
   
   #get the file names and the list of file names you want to replace them with
+  #assumes file names are in the following convention: YYYY_MM_DD_16S_ACC#_FWD_WELL_DATE_STAMP.ab1
   old_file_names <- dir(path, pattern=".ab1", full.names = TRUE)
-  new_file_names<- gsub("FWD_\\d+_\\d+.*", "FWD.ab1", old_file_names)
-  new_file_names<- gsub("REV_\\d+_\\d+.*", "REV.ab1", new_file_names)
+  new_file_names<- gsub("FWD_\\w+\\d+_\\d+_\\d+.*", "FWD.ab1", old_file_names)
+  new_file_names<- gsub("REV_\\w+\\d+_\\d+_\\d+.*", "REV.ab1", new_file_names)
   
   file.rename(from = old_file_names, to = new_file_names)
   
@@ -170,7 +171,7 @@ single.read<- function(readFileName, readFeature){
                           geneticCode = GENETIC_CODE,
                           TrimmingMethod = "M2",
                           M1TrimmingCutoff = NULL,
-                          M2CutoffQualityScore = 20,
+                          M2CutoffQualityScore = 15,
                           M2SlidingWindowSize = 10, 
                           baseNumPerRow = 100,
                           heightPerRow = 200,
